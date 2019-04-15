@@ -119,29 +119,6 @@ namespace WebApplication1.Controllers
             }
             return View(diamondItem);
 
-
-
-
-            
-
-
-
-
-               // _db.ApplyPropertyChanges(diamondItem.name, itemToEdit);
-
-            /*
-             var diamondItem1 = (from m in _db.Items
-
-                                    where m.IdItems == itemToEdit.IdItems
-
-                                    select m).First();
-
-              diamondItem1.name = diamondItem.name;
-
-
-  */
-
-
             _db.SaveChanges();
 
             return RedirectToAction("Details1");
