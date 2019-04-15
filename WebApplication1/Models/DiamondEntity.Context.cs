@@ -13,10 +13,10 @@ namespace WebApplication1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DiamondEntities : DbContext
+    public partial class DiamondEntities1 : DbContext
     {
-        public DiamondEntities()
-            : base("name=DiamondEntities")
+        public DiamondEntities1()
+            : base("name=DiamondEntities1")
         {
         }
     
@@ -25,7 +25,11 @@ namespace WebApplication1.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+
+        public void AddToItems(Item itemToCreate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

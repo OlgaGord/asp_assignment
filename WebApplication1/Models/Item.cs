@@ -19,7 +19,6 @@ namespace WebApplication1.Models
         public string description { get; set; }
         public Nullable<decimal> price { get; set; }
         public Nullable<int> category { get; set; }
-    
-        public virtual Category Category1 { get; set; }
+        public string image { get; set; }
     }
 }
