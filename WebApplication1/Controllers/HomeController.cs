@@ -16,13 +16,19 @@ namespace WebApplication1.Controllers
         {
         private DiamondEntities1 _db = new DiamondEntities1();
 
-        public ActionResult Details1()
-
+        /// <summary>
+        /// product details
+        /// </summary>
+        /// <param name="id">category id</param>
+        /// <returns></returns>
+        public ActionResult Details1(int? id)
         {
-
+            if (id != null && id > 0)
+                return View(_db.Items.ToList().Where(l => l.category == id));
             return View(_db.Items.ToList());
 
         }
+
         public ActionResult Index()
         {
             return View();
@@ -56,13 +62,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Details1");
 
         }
-        //
-
-        // POST: /Home/Create 
-
-
-        //
-
+    
         // GET: /Home/Edit/5
 
         public ActionResult Edit(int id)
@@ -81,11 +81,7 @@ namespace WebApplication1.Controllers
 
         //
 
-        // POST: /Home/Edit/5 
-
-
-                             
-        [AcceptVerbs(HttpVerbs.Post)]
+       [AcceptVerbs(HttpVerbs.Post)]
 
         public ActionResult Edit(Item itemToEdit)
 
@@ -93,15 +89,15 @@ namespace WebApplication1.Controllers
 
             var diamondItem = (from m in _db.Items
 
-                                 where m.IdItems == itemToEdit.IdItems
+                               where m.IdItems == itemToEdit.IdItems
 
-                                 select m).First();
+                               select m).First();
 
             if (!ModelState.IsValid)
 
                 return View(diamondItem);
 
-//   var itemToUpdate1 = _db.Items.Find();
+            //   var itemToUpdate1 = _db.Items.Find();
             if (TryUpdateModel(diamondItem, "",
                new string[] { "name", "description", "price", "category", "image" })) ;
             {
@@ -109,7 +105,7 @@ namespace WebApplication1.Controllers
                 {
                     _db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details1");
                 }
                 catch (DataException /* dex */)
                 {
@@ -124,6 +120,28 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Details1");
 
         }
+
+        public ActionResult Delete(int? id)
+        {
+            
+            Item itemDiamond = _db.Items.Find(id);
+            if (itemDiamond == null)
+            {
+                return HttpNotFound();
+            }
+            return View(itemDiamond);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Item itemDiamond = _db.Items.Find(id);
+            _db.Items.Remove(itemDiamond);
+            _db.SaveChanges();
+            return RedirectToAction("Details1");
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "At Luxe Diamond Jewelers the passion for beautiful jewelry and friendly service is obvious..";

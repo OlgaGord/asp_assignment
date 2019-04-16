@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Item</h4>
         <hr />
@@ -63,11 +63,12 @@
             </div>
         </div>
     </div>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Details1")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Details1", new { id = Model.category })
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
