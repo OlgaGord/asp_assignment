@@ -44,6 +44,21 @@ namespace WebApplication1.Controllers
 
         }
 
+        public ActionResult Details(int id)
+
+        {
+
+            var itemToView = (from m in _db.Items
+
+                              where m.IdItems == id
+
+                              select m).First();
+
+            return View(itemToView);
+            
+
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
 
         public ActionResult Create([Bind(Exclude = "id")]Item itemToCreate)
